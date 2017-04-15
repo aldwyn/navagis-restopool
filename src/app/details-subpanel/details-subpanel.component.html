@@ -1,0 +1,50 @@
+<article>
+    <div class="go-back">
+        <a [routerLink]="['/search']" [queryParams]="{ query: searchService.searchQuery }">
+            <span class="glyphicon glyphicon-chevron-left"></span> Go back to Search
+        </a>
+    </div>
+    <section>
+        <div class="thumbnail">
+            <img src="https://b.zmtcdn.com/data/pictures/3/18166803/72bc89f1d9b81ff2de6b57e7f8afcb54_featured_v2.jpg?fit=around|650:350&crop=650:350;*,*" alt="">
+        </div>
+    </section>
+    <section class="main-details">
+        <div class="page-header">
+            <h2><strong>{{restaurant.name}}</strong></h2>
+            <h4>{{restaurant.type}}</h4>
+            <h5 *ngIf="restaurant.rating">Rating {{restaurant.rating}} <span class="glyphicon glyphicon-star"></span> of {{restaurant.reviewsCount}} Zomato reviews</h5>
+        </div>
+    </section>
+    <section class="main-details">
+        <div>
+            <a href="">{{restaurant.address}}</a> &nbsp;&nbsp;
+            <span class="glyphicon glyphicon-map-marker"></span>
+        </div>
+        <!-- <div>
+            <a href="">Get directions from your current location</a> &nbsp;&nbsp;
+            <span class="glyphicon glyphicon-map-marker"></span>
+        </div> -->
+        <div>
+            <span class="label label-info" *ngFor="let cuisine of restaurant.cuisines">{{cuisine}}</span> &nbsp;&nbsp; <span class="glyphicon glyphicon-cutlery"></span>
+        </div>
+    </section>
+    <section>
+        <div class="page-header">
+            <h3>Description</h3>
+        </div>
+        <p>{{restaurant.description}}</p>
+    </section>
+    <section *ngIf="restaurant.knownFor">
+        <div class="page-header">
+            <h3>Known for</h3>
+        </div>
+        <p>{{restaurant.knownFor}}</p>
+    </section>
+    <section>
+        <div class="page-header">
+            <h3>Menus</h3>
+        </div>
+        
+    </section>
+</article>

@@ -1,0 +1,20 @@
+.page-header {
+    margin: 0;
+    margin-bottom: 20px;
+}
+
+.media-body {
+    padding-left: 20px;
+}
+
+.media-body h3 {
+    margin-top: 0px;
+}
+
+.media-body p {
+    font-size: 13px;
+}
+
+.media-body p > .label {
+    margin-right: 5px;
+}

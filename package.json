@@ -2,6 +2,8 @@
   "name": "restopool",
   "version": "0.0.0",
   "license": "MIT",
+  "author": "Aldwyn Cabarrubias <aldwyn.up@gmail.com>",
+  "private": true,
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

@@ -1,34 +1,18 @@
 <main>
-    <sebm-google-map
-        [(styles)]="mapService.styles[mapService.styleKey]"
-        [(latitude)]="mapService.latitude"
-        [(longitude)]="mapService.longitude"
-        [(streetViewControl)]="mapService.streetViewControl"
-        [(scrollwheel)]="mapService.scrollwheel"
-        [(mapTypeControl)]="mapService.mapTypeControl"
-        [(zoom)]="mapService.zoom">
-        <sebm-google-map-circle [latitude]="mapService.latitude" [longitude]="mapService.longitude" 
-            [radius]="500"
-            [fillColor]="'red'"
-            [circleDraggable]="true"
-            [editable]="true">
-        </sebm-google-map-circle>
-        <sebm-google-map-marker *ngFor="let resto of restaurants" [latitude]="resto.latitude" [longitude]="resto.longitude">
-            <sebm-google-map-info-window [id]="'marker' + resto.id" [isOpen]="mapService.preOpenedInfoWindow.indexOf(resto.id) !== -1 && searchQuery == ''">
-                <a href="/{{resto.id}}"><strong>{{resto.name}}</strong></a>
-                <p *ngIf="resto.rating">Rating {{resto.rating}} of {{resto.reviewsCount}} reviews</p>
-            </sebm-google-map-info-window>
-        </sebm-google-map-marker>
-    </sebm-google-map>
+    <map-overlay></map-overlay>
     <div id="header-panel" class="panel">
         <h3><strong>Browse food hubs within your reach!</strong></h3>
         <p><strong>RestoPool</strong>, a joint project with the location intelligence system by Navagis Inc. and with the current dataset of food hubs by Zomato Inc., offers a cozy and enjoyable experience when hunting for yummy treats all across Cebu right in your browser!</p>
         <div id="search-bar" class="input-group input-group-lg">
-            <input type="text" [(ngModel)]="searchQuery" class="form-control" placeholder="Start searching...">
-            <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+            <input type="text" [(ngModel)]="searchService.searchQuery" class="form-control" placeholder="Start searching..." name="searchQuery" (input)="searchService.navigateToSearch()">
+            <span class="input-group-btn">
+                <a [routerLink]="['search']" [queryParams]="{ query: searchService.searchQuery }" routerLinkActive="active" class="btn btn-default">
+                    <span class="glyphicon glyphicon-search"></span>
+                </a>
+            </span>
         </div>
         <hr>
-        <select class="form-control" [(ngModel)]="filterBy">
+        <select class="form-control" [(ngModel)]="searchService.filterBy">
             <option value="name">Filter by Name</option>
             <option value="type">Filter by Type</option>
             <option value="cuisines">Filter by Cuisine</option>
@@ -37,20 +21,20 @@
         <div>
             <div class="checkbox">
                 <label>
-                    <input type="checkbox" value="">
-                    Collapse all markers
+                    <input type="checkbox" [(ngModel)]="mapService.isMarkersVisible">
+                    <span>Make all markers visible</span>
                 </label>
             </div>
             <div class="checkbox">
                 <label>
-                    <input type="checkbox" value="">
-                    Collapse info windows on all markers
+                    <input type="checkbox" [(ngModel)]="mapService.isInfoWindowsVisible">
+                    <span>Collapse all info windows</span>
                 </label>
             </div>
             <div class="checkbox">
                 <label>
-                    <input type="checkbox" value="">
-                    Show circle marker to determine the number of food hubs within
+                    <input type="checkbox" [(ngModel)]="mapService.isCircleVisible" (change)="mapService.getFoodHubsCountWithinRadius()">
+                    <span>Show draggable circle marker</span>
                 </label>
             </div>
         </div>
@@ -62,34 +46,9 @@
             </label>
         </div>
     </div>
-    <div id="search-panel" [@slideInOut]="searchQuery !== '' ? 'in' : 'out'">
-        <nav class="page-header">
-            <h3><span class="glyphicon glyphicon-search"></span> Search Results ({{searchResult.count}})</h3>
-        </nav>
-        <ul class="media-list">
-            <li class="media" *ngFor="let resto of (restaurants | restaurantSearch:searchQuery:filterBy:searchResult:cuisinesDict)">
-                <div class="media-body" *ngIf="!resto">
-                    <h4>No matches found.</h4>
-                </div>
-                <div class="media-left" *ngIf="resto">
-                    <a href="{{resto.id}}">
-                        <img class="media-object" onerror="this.style.display = 'none'" src="{{resto.thumbnailUrl}}?fit=around|175:100&crop=175:100;*,*" alt="{{resto.name}}">
-                    </a>
-                </div>
-                <div class="media-body" *ngIf="resto">
-                    <h3>
-                        <a href="{{resto.id}}">{{resto.name}}</a><br>
-                        <small>{{resto.type}}</small>
-                        <small *ngIf="resto.rating">&#x25cf; <span class="glyphicon glyphicon-star"></span> {{resto.rating}}</small>
-                    </h3>
-                    <p>
-                        <span class="glyphicon glyphicon-map-marker"></span> &nbsp;&nbsp;{{resto.address}}<br>
-                        <span class="glyphicon glyphicon-cutlery"></span> &nbsp;&nbsp;
-                        <span class="label label-info" *ngFor="let cuisine of resto.cuisines">{{cuisine}}</span>
-                    </p>
-                </div>
-                <hr>    
-            </li>
-        </ul>
+    <div id="router-panel" [@slideInOut]="(searchService.searchQuery !== '' || restaurantService.currentRouted !== undefined) ? 'in' : 'out'">
+    <!-- <div id="router-panel" [@slideInOut]="'out'"> -->
+        <!-- <details-subpanel></details-subpanel> -->
+        <router-outlet></router-outlet>
     </div>
 </main>

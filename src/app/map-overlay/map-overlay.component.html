@@ -1,0 +1,37 @@
+<sebm-google-map
+    [styles]="mapService.styles[mapService.styleKey]"
+    [latitude]="mapService.latitude"
+    [longitude]="mapService.longitude"
+    [streetViewControl]="mapService.streetViewControl"
+    [scrollwheel]="mapService.scrollwheel"
+    [mapTypeControl]="mapService.mapTypeControl"
+    [zoom]="mapService.zoom">
+    <sebm-google-map-circle
+        [latitude]="mapService.circleCenter.latitude"
+        [longitude]="mapService.circleCenter.longitude" 
+        [radius]="mapService.circleRadius"
+        [fillColor]="mapService.circleFillColor"
+        [circleDraggable]="mapService.circleDraggable"
+        [editable]="true"
+        [visible]="mapService.isCircleVisible"
+        (radiusChange)="mapService.getFoodHubsCountWithRadius($event)"
+        (centerChange)="mapService.getFoodHubsCountWithCenter($event)">
+        <sebm-google-map-info-window
+            [latitude]="mapService.circleCenter.latitude"
+            [longitude]="mapService.circleCenter.longitude"
+            [isOpen]="mapService.isCircleVisible">
+            <h4>There are {{mapService.foodHubCountWithinRadius}} food hubs within this radius.</h4>
+        </sebm-google-map-info-window>
+    </sebm-google-map-circle>
+    <sebm-google-map-marker
+        *ngFor="let resto of restaurantService.restaurants"
+        [latitude]="resto.latitude"
+        [longitude]="resto.longitude"
+        [visible]="mapService.isMarkersVisible">
+        <sebm-google-map-info-window
+            [isOpen]="mapService.isInfoWindowsVisible && mapService.preOpenedInfoWindow.indexOf(resto.id) !== -1">
+            <a href="/{{resto.id}}"><strong>{{resto.name}}</strong></a>
+            <p *ngIf="resto.rating">Rating {{resto.rating}} of {{resto.reviewsCount}} reviews</p>
+        </sebm-google-map-info-window>
+    </sebm-google-map-marker>
+</sebm-google-map>

@@ -1,0 +1,29 @@
+runtime: nodejs
+env: flex
+
+handlers:
+- url: /(.+)
+  static_files: dist/\1
+  upload: dist/(.*)
+
+- url: /
+  static_files: index.html
+  upload: dist/index.html
+
+skip_files:
+- ^node_modules$
+- ^src$
+- ^e2e$
+- ^angular\-cli\.json
+- \.editorconfig
+- \.git$
+- \.gitignore
+- ^README.md
+- ^app\.yaml
+- ^app\.yaml
+- ^karma\.config\.json
+# - ^package\.json
+- ^protractor\.conf\.js
+- ^tsconfig\.json
+- ^tslint\.json
+- ^yarn\.lock

@@ -3,12 +3,6 @@ main {
     height: 100%;
 }
 
-sebm-google-map {
-    height: 100%;
-    position: relative;
-    z-index: 0;
-}
-
 #header-panel {
     position: absolute;
     top: 52px;
@@ -34,7 +28,7 @@ sebm-google-map {
     margin-bottom: 30px;
 }
 
-#search-panel {
+#router-panel {
     padding: 20px 45px;
     background-color: #fff;
     position: fixed;
@@ -46,27 +40,7 @@ sebm-google-map {
     min-width: 250px;
     z-index: 2;
     overflow-y: scroll;
-}
-
-.page-header {
-    margin: 0;
-    margin-bottom: 20px;
-}
-
-.media-body {
-    padding-left: 20px;
-}
-
-.media-body h3 {
-    margin-top: 0px;
-}
-
-.media-body p {
-    font-size: 13px;
-}
-
-.media-body p > .label {
-    margin-right: 5px;
+    box-shadow: 0 0 6px;
 }
 
 .glyphicon {

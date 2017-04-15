@@ -1,0 +1,15 @@
+article {
+    padding: 0 40px;
+}
+
+.go-back {
+    margin-bottom: 20px;
+}
+
+.main-details {
+    text-align: right;
+}
+
+.media-body p > .label {
+    margin-right: 5px;
+}
