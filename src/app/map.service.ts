@@ -1,15 +1,31 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
+import { GoogleMapsAPIWrapper } from 'angular2-google-maps/core/services/google-maps-api-wrapper';
 
+import { AgmDirectionsDirective } from './agm-directions.directive';
 import { RestaurantService } from './restaurant.service';
 import { Restaurant } from './restaurant';
 import { Coordinates } from './coordinates';
+import { DirectionRoute } from './direction-route';
 
 declare var google: any;
 
 @Injectable()
 export class MapService {
   mapStyleKeys: string[] = ['aubergine', 'dark', 'night', 'retro', 'silver', 'standard'];
+  mapMarkerDirUrl: string = '../assets/map-icons/';
+  typeIconDict: Object = {
+    'Bakery': 'sandwich.png',
+    'Bar': 'bar-cocktail.png',
+    'Café': 'coffee.png',
+    'Casual Dining': 'fast-food.png',
+    'Dessert Parlor': 'ice-cream.png',
+    'Fine Dining': 'restaurant.png',
+    'Food Court': 'cafeteria.png',
+    'Kiosk': 'food-truck.png',
+    'Lounge': 'beer-garden.png',
+    'Quick Bites': 'fish-chips.png',
+  };
   zoom: number = 15;
   styles: Object = {};
   styleKey: string = 'aubergine';
@@ -18,6 +34,7 @@ export class MapService {
   streetViewControl: boolean = false;
   scrollwheel: boolean = false;
   mapTypeControl: boolean = false;
+  usePanning: boolean = true;
   preOpenedInfoWindow: number[] = [17815792, 18166794, 17816660, 17829448];
   isCircleVisible: boolean = false;
   isMarkersVisible: boolean = true;
@@ -30,9 +47,15 @@ export class MapService {
   circleRadius: number = 500;
   circleFillColor: string = 'red';
   circleDraggable: boolean = true;
+  currentClientLocation: Coordinates;
+  currentClientDirections: DirectionRoute[];
+  toggleGetDirections: boolean = false;
+  directionsDirective: AgmDirectionsDirective;
+  transitMode: string = 'TRANSIT';
 
   constructor(
     private http: Http,
+    private gmapsApi: GoogleMapsAPIWrapper,
     public restaurantService: RestaurantService,
   ) {
     this.mapStyleKeys.map((s) => {
@@ -41,6 +64,12 @@ export class MapService {
         .toPromise()
         .then((res: any) => this.styles[s] = res.json())
         .catch((error: any) => console.error(error));
+    });
+    navigator.geolocation.getCurrentPosition(position => {
+      this.currentClientLocation = {
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+      }
     });
   }
 
@@ -62,11 +91,12 @@ export class MapService {
       return google.maps.geometry.spherical
         .computeDistanceBetween(center, currCoord) <= this.circleRadius;
     }).length;
-    console.log(this.foodHubCountWithinRadius);
   }
 
-  getDirections(source: Coordinates, destination: Coordinates) {
-
+  getDirections() {
+    this.isMarkersVisible = false;
+    this.isInfoWindowsVisible = false;
+    this.directionsDirective.getDirections();
   }
 
 }

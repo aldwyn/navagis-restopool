@@ -12,6 +12,7 @@ export class RestaurantService {
   restaurantsDict: Object = {};
   cuisinesDict: Object = {};
   typeDict: Object = {};
+  focusedFoodHub: Restaurant;
 
   constructor(private http: Http) {
     this.getRestaurants()

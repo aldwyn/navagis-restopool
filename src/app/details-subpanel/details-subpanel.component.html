@@ -1,50 +1,92 @@
 <article>
     <div class="go-back">
-        <a [routerLink]="['/search']" [queryParams]="{ query: searchService.searchQuery }">
-            <span class="glyphicon glyphicon-chevron-left"></span> Go back to Search
+        <a [routerLink]="['/search']" [queryParams]="{ q: searchService.searchQuery }" routerLinkActive="active">
+            <span class="fa fa-chevron-left"></span> Go back to Search
         </a>
     </div>
     <section>
-        <div class="thumbnail">
-            <img src="https://b.zmtcdn.com/data/pictures/3/18166803/72bc89f1d9b81ff2de6b57e7f8afcb54_featured_v2.jpg?fit=around|650:350&crop=650:350;*,*" alt="">
+        <div class="card">
+            <div class="card-img">
+                <img src="{{restaurantService.focusedFoodHub.thumbnailUrl}}?fit=around|435:200&crop=435:200;*,*" alt="">
+            </div>
         </div>
     </section>
-    <section class="main-details">
+    <section class="main-details mt-4">
         <div class="page-header">
-            <h2><strong>{{restaurant.name}}</strong></h2>
-            <h4>{{restaurant.type}}</h4>
-            <h5 *ngIf="restaurant.rating">Rating {{restaurant.rating}} <span class="glyphicon glyphicon-star"></span> of {{restaurant.reviewsCount}} Zomato reviews</h5>
+            <h2><strong>{{restaurantService.focusedFoodHub.name}}</strong></h2>
+            <h4 class="text-muted">{{restaurantService.focusedFoodHub.type}}</h4>
+            <h5 class="resto-rating" *ngIf="restaurantService.focusedFoodHub.rating">Rating {{restaurantService.focusedFoodHub.rating}} <span class="fa fa-star"></span> of {{restaurantService.focusedFoodHub.reviewsCount}} Zomato reviews</h5>
         </div>
     </section>
-    <section class="main-details">
-        <div>
-            <a href="">{{restaurant.address}}</a> &nbsp;&nbsp;
-            <span class="glyphicon glyphicon-map-marker"></span>
-        </div>
-        <!-- <div>
-            <a href="">Get directions from your current location</a> &nbsp;&nbsp;
-            <span class="glyphicon glyphicon-map-marker"></span>
-        </div> -->
-        <div>
-            <span class="label label-info" *ngFor="let cuisine of restaurant.cuisines">{{cuisine}}</span> &nbsp;&nbsp; <span class="glyphicon glyphicon-cutlery"></span>
+    <section class="main-details mt-4">
+        <div class="row">
+            <div class="col-md-5">
+                <button class="get-directions btn btn-lg btn-info" (click)="mapService.getDirections()">
+                    <span class="fa fa-map-marker"></span>
+                    <span>Get Directions</span>
+                </button>
+            </div>
+            <div class="col-md-7">
+                <div>
+                    <a href="">{{restaurantService.focusedFoodHub.address}}</a> &nbsp;&nbsp;
+                    <span class="fa fa-map-marker"></span>
+                </div>
+                <div>
+                    <span class="badge badge-warning" *ngFor="let cuisine of restaurantService.focusedFoodHub.cuisines"><strong>{{cuisine}}</strong></span> &nbsp;&nbsp;<span class="fa fa-cutlery"></span>
+                </div>
+            </div>
         </div>
     </section>
-    <section>
+    <section *ngIf="mapService.directionsDirective.directions" class="mt-4">
         <div class="page-header">
-            <h3>Description</h3>
+            <h4>Directions</h4>            
         </div>
-        <p>{{restaurant.description}}</p>
+        <div class="form-group row">
+            <label class="col-md-5">Transit Mode:</label>
+            <div class="col-md-7">
+                <div class="form-check form-check-inline" (click)="mapService.transitMode = 'TRANSIT'; mapService.getDirections()">
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input" [checked]="mapService.transitMode === 'TRANSIT'"> Transit
+                    </label>
+                </div>
+                <div class="form-check form-check-inline" (click)="mapService.transitMode = 'DRIVING'; mapService.getDirections()">
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input" [checked]="mapService.transitMode === 'DRIVING'"> Driving
+                    </label>
+                </div>
+                <div class="form-check form-check-inline" (click)="mapService.transitMode = 'WALKING'; mapService.getDirections()">
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input" [checked]="mapService.transitMode === 'WALKING'"> Walking
+                    </label>
+                </div>
+            </div>
+        </div>
     </section>
-    <section *ngIf="restaurant.knownFor">
+    <section id="directions-panel"></section>
+    <hr>
+    <section class="mt-4">
         <div class="page-header">
-            <h3>Known for</h3>
+            <h4>Description</h4>
         </div>
-        <p>{{restaurant.knownFor}}</p>
+        <p>{{restaurantService.focusedFoodHub.description}}</p>
+        <p class="mt-3" *ngIf="restaurantService.focusedFoodHub.knownFor">
+           <strong>Known for: </strong>
+           {{restaurantService.focusedFoodHub.knownFor}} 
+        </p>
+        <hr>
     </section>
-    <section>
+    <section class="mt-4">
         <div class="page-header">
-            <h3>Menus</h3>
+            <h4>Menus</h4>
         </div>
-        
+        <div class="card">
+            <div class="card-block">
+                <ngb-carousel>
+                    <template ngbSlide *ngFor="let menuUrl of restaurantService.focusedFoodHub.menuUrls">
+                        <img  src="{{menuUrl}}" alt="{{menuUrl}}">
+                    </template>
+                </ngb-carousel>
+            </div>
+        </div>
     </section>
 </article>

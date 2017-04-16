@@ -3,29 +3,27 @@ main {
     height: 100%;
 }
 
-#header-panel {
-    position: absolute;
-    top: 52px;
-    left: 50px;
-    z-index: 1;
-    width: 500px;
-    min-height: auto;
-    padding: 20px;
-    /*line-height: 1.35em;*/
-    box-shadow: 0 0 6px;
-}
-
-#header-panel h3 {
+#criteria-subpanel h6 {
     color: #1b809e;
 }
 
-#header-panel p {
-    margin: 25px 0;
+#criteria-subpanel {
+    position: absolute;
+    z-index: 4;
+    background-color: white;
+    box-shadow: 0 0 6px;
+    padding: 15px;
+    top: 52px;
+    left: 50px;
+    width: 425px;
 }
 
-#search-bar {
-    margin-top: 10px;
-    margin-bottom: 30px;
+#criteria-subpanel {
+    font-size: .8em;
+}
+
+#criteria-subpanel .form-check-inline label {
+    font-size: 87%;
 }
 
 #router-panel {
@@ -36,13 +34,9 @@ main {
     top: 0;
     right: 0;
     bottom: 0;
-    width: 55%;
+    width: 40%;
     min-width: 250px;
     z-index: 2;
     overflow-y: scroll;
     box-shadow: 0 0 6px;
-}
-
-.glyphicon {
-    color: #1b809e;
 }

@@ -1,15 +1,24 @@
-article {
-    padding: 0 40px;
-}
-
 .go-back {
     margin-bottom: 20px;
 }
 
 .main-details {
+    margin-top: 20px;
     text-align: right;
 }
 
-.media-body p > .label {
+.main-details .badge {
     margin-right: 5px;
+}
+
+.get-directions {
+    float: left;
+}
+
+.resto-rating {
+    color: #ff9d00;
+}
+
+.page-header {
+    font-weight: bolder;
 }

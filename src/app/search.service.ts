@@ -1,4 +1,4 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { RestaurantService } from './restaurant.service';
@@ -6,30 +6,34 @@ import { Restaurant } from './restaurant';
 
 
 @Injectable()
-export class SearchService implements OnInit  {
+export class SearchService  {
   searchQuery: string = '';
   filterBy: string = 'name';
   searchResult: Object = { count: 0 };
   filteredList: any[] = [null];
   filteredListCount: number = 0;
 
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     public restaurantService: RestaurantService
   ) { }
-
-  ngOnInit() {
-    this.filterFoodHubs();
-  }
 
   setRestaurantService(restaurantService) {
     this.restaurantService = restaurantService;
   }
 
   navigateToSearch() {
-    this.filterFoodHubs();
-    this.router.navigate(['search'], {
-      queryParams: { query: this.searchQuery }
-    })
+    if (this.hasSearchQuery()) {
+      this.filterFoodHubs();
+      this.restaurantService.focusedFoodHub = null;
+      this.router.navigate(['search'], {
+        queryParams: { q: this.searchQuery }
+      })
+    }
+  }
+
+  hasSearchQuery() {
+    return this.searchQuery.trim() !== '';
   }
 
   filterFoodHubs() {

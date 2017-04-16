@@ -22,7 +22,7 @@ skip_files:
 - ^app\.yaml
 - ^app\.yaml
 - ^karma\.config\.json
-# - ^package\.json
+- ^package\.json
 - ^protractor\.conf\.js
 - ^tsconfig\.json
 - ^tslint\.json

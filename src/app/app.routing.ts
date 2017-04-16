@@ -5,7 +5,7 @@ import { SearchSubpanelComponent } from './search-subpanel/search-subpanel.compo
 
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'search', pathMatch: 'full' },
+  // { path: '', redirectTo: 'search', pathMatch: 'full' },
   { path: 'search', component: SearchSubpanelComponent },
   { path: 'food-hub/:id', component: DetailsSubpanelComponent },
 ];
