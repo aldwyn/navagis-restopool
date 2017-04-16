@@ -29,28 +29,18 @@ import { Restaurant } from './restaurant';
       transition('in => out', animate('.5s ease-in-out')),
       transition('out => in', animate('.5s ease-in-out'))
     ]),
-    trigger('routerTransition', [
-      state('void', style({position:'fixed', width:'100%'}) ),
-      state('*', style({position:'fixed', width:'100%'}) ),
-      transition(':enter', [  // before 2.1: transition('void => *', [
-        style({transform: 'translateX(100%)'}),
-        animate('0.5s ease-in-out', style({transform: 'translateX(0%)'}))
-      ]),
-      transition(':leave', [  // before 2.1: transition('* => void', [
-        style({transform: 'translateX(0%)'}),
-        animate('0.5s ease-in-out', style({transform: 'translateX(-100%)'}))
-      ])
-    ]),
-    trigger('collapseHeaderPanel', [
-      state('in', style({
-        transform: 'translate3d(100%, 0, 0)'
-      })),
-      state('out', style({
-        transform: 'translate3d(0, 0, 0)'
-      })),
-      transition('in => out', animate('.5s ease-in-out')),
-      transition('out => in', animate('.5s ease-in-out'))
-    ]),
+    // trigger('routerTransition', [
+    //   state('void', style({position:'fixed', width:'100%'}) ),
+    //   state('*', style({position:'fixed', width:'100%'}) ),
+    //   transition(':enter', [  // before 2.1: transition('void => *', [
+    //     style({transform: 'translateX(100%)'}),
+    //     animate('0.5s ease-in-out', style({transform: 'translateX(0%)'}))
+    //   ]),
+    //   transition(':leave', [  // before 2.1: transition('* => void', [
+    //     style({transform: 'translateX(0%)'}),
+    //     animate('0.5s ease-in-out', style({transform: 'translateX(-100%)'}))
+    //   ])
+    // ]),
   ]
 })
 
