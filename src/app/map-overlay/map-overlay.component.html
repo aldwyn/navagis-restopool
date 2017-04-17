@@ -1,5 +1,5 @@
 <sebm-google-map
-    [@mapOverlayTransition]="(!searchService.hasSearchQuery()) ? 'in' : 'out'"
+    [@mapOverlayTransition]="(!searchService.hasSearchQuery() && !(restaurantService.focusedFoodHub)) ? 'in' : 'out'"
     [usePanning]="mapService.usePanning"
     [styles]="mapService.styles[mapService.styleKey]"
     [latitude]="mapService.latitude"
@@ -31,7 +31,8 @@
         [iconUrl]="mapService.mapMarkerDirUrl + mapService.typeIconDict[resto.type]"
         [latitude]="resto.latitude"
         [longitude]="resto.longitude"
-        [visible]="mapService.isMarkersVisible">
+        [visible]="mapService.isMarkersVisible"
+        (markerClick)="mapService.preOpenedInfoWindow.push(resto.id)">
         <sebm-google-map-info-window
             [isOpen]="mapService.isInfoWindowsVisible && mapService.preOpenedInfoWindow.indexOf(resto.id) !== -1">
             <a [routerLink]="['/food-hub', resto.id]" routerLinkActive="active"><strong>{{resto.name}}</strong></a>

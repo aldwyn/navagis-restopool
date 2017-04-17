@@ -5,6 +5,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 // 
 import { SearchService } from '../search.service';
+import { MapService } from '../map.service';
 import { RestaurantService } from '../restaurant.service';
 
 import { Restaurant } from '../restaurant';
@@ -20,6 +21,7 @@ export class SearchSubpanelComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    public mapService: MapService,
     public searchService: SearchService,
     public restaurantService: RestaurantService,
   ) { }
@@ -27,8 +29,10 @@ export class SearchSubpanelComponent implements OnInit {
   ngOnInit() {
     this.sub = this.route.queryParams.subscribe(queryParams => {
       this.searchService.searchQuery = queryParams['q'];
-      // this.searchService.setRestaurantService(RestaurantService);
-      // this.searchService.filterFoodHubs();
+      this.mapService.directionsDirective.clearRoutes();
+      this.mapService.isMarkersVisible = true;
+      this.mapService.isInfoWindowsVisible = true;
+      this.restaurantService.focusedFoodHub = null;
     });
   }
 

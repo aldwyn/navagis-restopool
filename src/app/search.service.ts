@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { MapService } from './map.service';
 import { RestaurantService } from './restaurant.service';
 import { Restaurant } from './restaurant';
 
@@ -15,6 +16,7 @@ export class SearchService  {
 
   constructor(
     private router: Router,
+    public mapService: MapService,
     public restaurantService: RestaurantService
   ) { }
 

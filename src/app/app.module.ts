@@ -8,8 +8,7 @@ import { RouterModule } from '@angular/router';
 import { AgmCoreModule } from 'angular2-google-maps/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { routes } from './app.routing';
-
+import { AppRoutesModule } from './app.routing';
 import { MapService } from './map.service';
 import { SearchService } from './search.service';
 import { RestaurantService } from './restaurant.service';
@@ -33,7 +32,7 @@ import { AgmDirectionsDirective } from './agm-directions.directive';
     BrowserAnimationsModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(routes),
+    AppRoutesModule,
     NgbModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAp2JYyf56opEm6FIt9Yj1Hg1RDH7oO1h4',

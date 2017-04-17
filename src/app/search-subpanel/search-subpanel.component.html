@@ -8,7 +8,7 @@
                 <h4>No matches found.</h4>
             </div>
             <a *ngIf="resto" [routerLink]="['/food-hub', resto.id]" routerLinkActive="active">
-                <img class="d-flex align-self-start mr-4" onerror="this.style.display = 'none'" src="{{resto.thumbnailUrl}}?fit=around|120:100&crop=120:100;*,*" alt="{{resto.name}}">
+                <img class="d-flex align-self-start mr-4" onerror="this.style.display = 'none'" src="{{resto.thumbnailUrl.replace('?output-format=webp', '')}}?fit=around|120:100&crop=120:100;*,*" alt="{{resto.name}}">
             </a>
             <div class="media-body" *ngIf="resto">
                 <h5 class="mt-0">

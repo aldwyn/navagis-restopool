@@ -6,7 +6,6 @@ import { AgmDirectionsDirective } from './agm-directions.directive';
 import { RestaurantService } from './restaurant.service';
 import { Restaurant } from './restaurant';
 import { Coordinates } from './coordinates';
-import { DirectionRoute } from './direction-route';
 
 declare var google: any;
 
@@ -48,7 +47,6 @@ export class MapService {
   circleFillColor: string = 'red';
   circleDraggable: boolean = true;
   currentClientLocation: Coordinates;
-  currentClientDirections: DirectionRoute[];
   toggleGetDirections: boolean = false;
   directionsDirective: AgmDirectionsDirective;
   transitMode: string = 'TRANSIT';
