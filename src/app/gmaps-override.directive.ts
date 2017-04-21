@@ -1,26 +1,43 @@
-import { Directive, Input, OnInit } from '@angular/core';
-import { GoogleMapsAPIWrapper } from 'angular2-google-maps/core/services/google-maps-api-wrapper';
+import { Directive, Input } from '@angular/core';
+import { SebmGoogleMap, GoogleMapsAPIWrapper } from 'angular2-google-maps/core';
+import { GoogleMap, Marker } from 'angular2-google-maps/core/services/google-maps-types';
+import 'js-marker-clusterer/src/markerclusterer.js';
 
+import { Restaurant } from './restaurant';
 import { MapService } from './map.service';
 import { RestaurantService } from './restaurant.service';
-import { Coordinates } from './coordinates';
 
-declare var google: any;
+declare const google;
+declare const MarkerClusterer;
 
 @Directive({
-  selector: 'agm-directions'
+  selector: '[gmaps-override]'
 })
-export class AgmDirectionsDirective implements OnInit {
-  @Input() mapService: MapService;
-  @Input() restaurantService: RestaurantService;
+export class GmapsOverrideDirective {
+  clusterIconUrl = 'https://googlemaps.github.io/js-marker-clusterer/images/m';
   directionsService: any;
   directionsDisplay: any;
   hasRoutes: boolean = false;
 
-  constructor(private gmapsApi: GoogleMapsAPIWrapper) { }
-
-  ngOnInit() {
+  constructor(
+    private gmapsApi: GoogleMapsAPIWrapper,
+    public mapService: MapService,
+    public restaurantService: RestaurantService,
+  ) {
+    this.loadMarkerClusters();
     this.mapService.directionsDirective = this;
+  }
+
+  loadMarkerClusters() {
+    this.gmapsApi.getNativeMap().then(map => {
+      let markers = this.restaurantService.restaurants
+        .map((r: Restaurant) => {
+          return new google.maps.Marker({
+            position: { lat: r.latitude, lng: r.longitude }
+          });
+        });
+      (new MarkerClusterer(map, markers, { imagePath: this.clusterIconUrl }));
+    });
   }
 
   getDirections() {

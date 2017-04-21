@@ -1,4 +1,4 @@
-<sebm-google-map
+<sebm-google-map gmaps-override
     [@mapOverlayTransition]="(!searchService.hasSearchQuery() && !(restaurantService.focusedFoodHub)) ? 'in' : 'out'"
     [usePanning]="mapService.usePanning"
     [styles]="mapService.styles[mapService.styleKey]"
@@ -8,8 +8,8 @@
     [scrollwheel]="mapService.scrollwheel"
     [mapTypeControl]="mapService.mapTypeControl"
     [zoom]="mapService.zoom">
-    <agm-directions [mapService]="mapService" [restaurantService]="restaurantService"></agm-directions>
-    <sebm-google-map-circle
+    <!-- <agm-directions [mapService]="mapService" [restaurantService]="restaurantService"></agm-directions> -->
+    <!-- <sebm-google-map-circle
         [latitude]="mapService.circleCenter.latitude"
         [longitude]="mapService.circleCenter.longitude" 
         [radius]="mapService.circleRadius"
@@ -25,18 +25,18 @@
             [isOpen]="mapService.isCircleVisible">
             <h6>There are <strong>{{mapService.foodHubCountWithinRadius}}</strong> food hubs within this radius.</h6>
         </sebm-google-map-info-window>
-    </sebm-google-map-circle>
-    <sebm-google-map-marker
-        *ngFor="let resto of restaurantService.restaurants"
+    </sebm-google-map-circle> -->
+    <!-- <sebm-google-map-marker
         [iconUrl]="mapService.mapMarkerDirUrl + mapService.typeIconDict[resto.type]"
         [latitude]="resto.latitude"
         [longitude]="resto.longitude"
         [visible]="mapService.isMarkersVisible"
         (markerClick)="mapService.preOpenedInfoWindow.push(resto.id)">
-        <sebm-google-map-info-window
-            [isOpen]="mapService.isInfoWindowsVisible && mapService.preOpenedInfoWindow.indexOf(resto.id) !== -1">
-            <a [routerLink]="['/food-hub', resto.id]" routerLinkActive="active"><strong>{{resto.name}}</strong></a>
-            <p *ngIf="resto.rating">Rating {{resto.rating}} of {{resto.reviewsCount}} reviews</p>
-        </sebm-google-map-info-window>
-    </sebm-google-map-marker>
+    </sebm-google-map-marker> -->
+    <sebm-google-map-info-window
+        *ngFor="let resto of restaurantService.restaurants"
+        [isOpen]="mapService.isInfoWindowsVisible && mapService.preOpenedInfoWindow.indexOf(resto.id) !== -1">
+        <a [routerLink]="['/food-hub', resto.id]" routerLinkActive="active"><strong>{{resto.name}}</strong></a>
+        <p *ngIf="resto.rating">Rating {{resto.rating}} of {{resto.reviewsCount}} reviews</p>
+    </sebm-google-map-info-window>
 </sebm-google-map>

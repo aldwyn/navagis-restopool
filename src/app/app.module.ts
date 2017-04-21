@@ -17,7 +17,7 @@ import { AppComponent } from './app.component';
 import { SearchSubpanelComponent } from './search-subpanel/search-subpanel.component';
 import { DetailsSubpanelComponent } from './details-subpanel/details-subpanel.component';
 import { MapOverlayComponent } from './map-overlay/map-overlay.component';
-import { AgmDirectionsDirective } from './agm-directions.directive';
+import { GmapsOverrideDirective } from './gmaps-override.directive';
 
 @NgModule({
   declarations: [
@@ -25,7 +25,7 @@ import { AgmDirectionsDirective } from './agm-directions.directive';
     SearchSubpanelComponent,
     DetailsSubpanelComponent,
     MapOverlayComponent,
-    AgmDirectionsDirective,
+    GmapsOverrideDirective,
   ],
   imports: [
     BrowserModule,
