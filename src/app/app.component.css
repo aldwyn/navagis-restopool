@@ -16,14 +16,24 @@ main {
     top: 52px;
     left: 50px;
     width: 425px;
-}
-
-#criteria-subpanel {
     font-size: .8em;
 }
 
-#criteria-subpanel .form-check-inline label {
-    font-size: 87%;
+#criteria-subpanel-2 {
+    position: absolute;
+    z-index: 4;
+    background-color: white;
+    box-shadow: 0 0 6px;
+    padding: 15px;
+    top: 68%;
+    left: 50px;
+    width: 52%;
+    font-size: .8em;
+}
+
+#criteria-subpanel .form-check-inline label,
+#criteria-subpanel-2 .form-check-inline label {
+    font-size: 12px;
 }
 
 #router-panel {

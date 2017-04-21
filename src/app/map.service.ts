@@ -2,7 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 import { GoogleMapsAPIWrapper } from 'angular2-google-maps/core/services/google-maps-api-wrapper';
 
-import { AgmDirectionsDirective } from './agm-directions.directive';
+import { GmapsOverrideDirective } from './gmaps-override.directive';
 import { RestaurantService } from './restaurant.service';
 import { Restaurant } from './restaurant';
 import { Coordinates } from './coordinates';
@@ -25,11 +25,11 @@ export class MapService {
     'Lounge': 'beer-garden.png',
     'Quick Bites': 'fish-chips.png',
   };
-  zoom: number = 15;
+  zoom: number = 13;
   styles: Object = {};
   styleKey: string = 'aubergine';
-  latitude: number = 10.322408;
-  longitude: number = 123.897866;
+  latitude: number = 10.314512;
+  longitude: number = 123.902329;
   streetViewControl: boolean = false;
   scrollwheel: boolean = false;
   mapTypeControl: boolean = false;
@@ -48,7 +48,7 @@ export class MapService {
   circleDraggable: boolean = true;
   currentClientLocation: Coordinates;
   toggleGetDirections: boolean = false;
-  directionsDirective: AgmDirectionsDirective;
+  directionsDirective: GmapsOverrideDirective;
   transitMode: string = 'TRANSIT';
 
   constructor(
@@ -92,6 +92,7 @@ export class MapService {
   }
 
   getDirections() {
+    this.isCircleVisible = false;
     this.isMarkersVisible = false;
     this.isInfoWindowsVisible = false;
     this.directionsDirective.getDirections();

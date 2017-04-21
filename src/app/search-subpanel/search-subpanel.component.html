@@ -1,29 +1,27 @@
 <nav class="search-header">
     <h3><span class="fa fa-search"></span> Search Results ({{searchService.filteredListCount}})</h3>
 </nav>
-<div class="container-fluid">
-    <ul class="list-unstyled">
-        <li class="media my-4" *ngFor="let resto of searchService.filteredList">
-            <div class="media-body" *ngIf="!resto">
-                <h4>No matches found.</h4>
-            </div>
-            <a *ngIf="resto" [routerLink]="['/food-hub', resto.id]" routerLinkActive="active">
-                <img class="d-flex align-self-start mr-4" onerror="this.style.display = 'none'" src="{{resto.thumbnailUrl.replace('?output-format=webp', '')}}?fit=around|120:100&crop=120:100;*,*" alt="{{resto.name}}">
-            </a>
-            <div class="media-body" *ngIf="resto">
-                <h5 class="mt-0">
-                    <a [routerLink]="['/food-hub', resto.id]" routerLinkActive="active">{{resto.name}}</a><br>
-                    <small class="text-muted">{{resto.type}}</small>
-                    <small class="resto-rating" *ngIf="resto.rating">&#x25cf; {{resto.rating}} <span class="fa fa-star"></span></small>
-                </h5>
-                <p>
-                    <span class="fa fa-map-marker"></span> &nbsp;&nbsp;{{resto.address}}
-                    <br>
-                    <span class="fa fa-cutlery"></span> &nbsp;&nbsp;
-                    <span class="badge badge-warning" *ngFor="let cuisine of resto.cuisines"><strong>{{cuisine}}</strong></span>
-                </p>
-            </div>
-            <hr>
-        </li>    
-    </ul>
-</div>
+<ul class="list-unstyled">
+    <li class="media my-4" *ngFor="let resto of searchService.filteredList">
+        <div class="media-body" *ngIf="!resto">
+            <h4>No matches found.</h4>
+        </div>
+        <a *ngIf="resto" [routerLink]="['/food-hub', resto.id]" routerLinkActive="active">
+            <img class="d-flex align-self-start mr-4" onerror="this.style.display = 'none'" src="{{resto.thumbnailUrl.replace('?output-format=webp', '')}}?fit=around|120:100&crop=120:100;*,*" alt="{{resto.name}}">
+        </a>
+        <div class="media-body" *ngIf="resto">
+            <h5 class="mt-0">
+                <a [routerLink]="['/food-hub', resto.id]" routerLinkActive="active">{{resto.name}}</a><br>
+                <small class="text-muted">{{resto.type}}</small>
+                <small class="resto-rating" *ngIf="resto.rating">&#x25cf; {{resto.rating}} <span class="fa fa-star"></span></small>
+            </h5>
+            <p>
+                <span class="fa fa-map-marker"></span> &nbsp;&nbsp;{{resto.address}}
+                <br>
+                <span class="fa fa-cutlery"></span> &nbsp;&nbsp;
+                <span class="badge badge-warning" *ngFor="let cuisine of resto.cuisines"><strong>{{cuisine}}</strong></span>
+            </p>
+        </div>
+        <hr>
+    </li>    
+</ul>

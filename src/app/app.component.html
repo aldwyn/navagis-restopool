@@ -1,6 +1,6 @@
 <main>
     <map-overlay></map-overlay>
-    <div id="criteria-subpanel">
+    <!-- <div id="criteria-subpanel">
         <h6><strong>Browse Cebu's best food hubs within your reach!</strong></h6>
         <p><strong>RestoPool</strong>, a joint project with the location intelligence system by Navagis Inc. and with the current dataset of food hubs by Zomato Inc., offers a cozy and enjoyable experience when hunting for yummy treats all across Cebu right in your browser!</p>
         <div class="form-group">
@@ -32,6 +32,50 @@
                     <label class="form-check-label form-control-sm">
                         <input class="form-check-input" type="radio" [checked]="mapService.styleKey == mStyle"> {{mStyle}}
                     </label>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <div id="criteria-subpanel-2">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h6><strong>Browse Cebu's best food hubs within your reach!</strong></h6>
+                    <p><strong>RestoPool</strong>, a joint project with the location intelligence system by Navagis Inc. and with the current dataset of food hubs by Zomato Inc., offers a cozy and enjoyable experience when hunting for yummy treats all across Cebu right in your browser!</p>
+                </div>
+                <div class="col-7">
+                    <div class="input-group">
+                        <select class="col-4 input-group-addon custom-select form-control form-control-sm" [(ngModel)]="searchService.filterBy">
+                            <option value="name">Filter by Name</option>
+                            <option value="type">Filter by Type</option>
+                            <option value="cuisines">Filter by Cuisine</option>
+                            <option value="address">Filter by Location</option>
+                        </select>
+                        <input type="text" autofocus class="form-control" [(ngModel)]="searchService.searchQuery" class="form-control form-control-sm" placeholder="Start searching..." name="searchQuery" (input)="searchService.navigateToSearch()">
+                    </div>
+                    <div>
+                        <label class="form-check-label form-control-sm">
+                            <input type="checkbox" class="form-check-input" [(ngModel)]="mapService.isMarkersVisible">
+                            <span>Markers</span>
+                        </label>
+                        <label class="form-check-label form-control-sm">
+                            <input type="checkbox" class="form-check-input" [(ngModel)]="mapService.isInfoWindowsVisible">
+                            <span>Info Windows</span>
+                        </label>
+                        <label class="form-check-label form-control-sm">
+                            <input type="checkbox" class="form-check-input" [(ngModel)]="mapService.isCircleVisible" (change)="mapService.getFoodHubsCountWithinRadius()">
+                            <span>Circle</span>
+                        </label>
+                        <hr>
+                        <div>
+                            <div class="form-check-inline" *ngFor="let mStyle of mapService.mapStyleKeys" (click)="mapService.styleKey = mStyle">
+                                <label class="form-check-label form-control-sm">
+                                    <input class="form-check-input" type="radio" [checked]="mapService.styleKey == mStyle"> {{mStyle}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
         </div>
